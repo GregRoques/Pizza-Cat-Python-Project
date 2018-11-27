@@ -15,13 +15,14 @@ class Start_Button(object):
         self.screen_rect = self.screen.get_rect()
 
         # Set the title Screen
-        self.image = pygame.image.load("startScreen.jpg")
+        self.image = pygame.image.load("startScreen.jpg").convert_alpha()
         self.rect = self.image.get_rect
         
 
     def draw_button(self):
         self.screen.blit(self.image, [0, 0])
-        pygame.mixer.music.load('GameMusic.wav')
-        pygame.mixer.music.set_volume(0.6)
-        pygame.mixer.music.play(loops=-1)
+        
+        # pygame.mixer.music.load('Metroid.wav')
+        # pygame.mixer.music.set_volume(0.6)
+        # pygame.mixer.music.play(loops=-1)
      

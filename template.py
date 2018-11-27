@@ -5,7 +5,7 @@ from pygame.sprite import Group, groupcollide, spritecollide, collide_circle
 import random
 import os
 
-from button import Start_Button
+# from button import Start_Button
 from Player import Player
 from Asteroid import Asteroid
 from Bullet import Bullet
@@ -74,13 +74,17 @@ running = False
 
 intro = True
 
-while intro:
-    start = Start_Button(screen)
 
-    start.draw_button()
-    pygame.mixer.music.load('GameMusic.wav')
-    pygame.mixer.music.set_volume(0.6)
-    pygame.mixer.music.play(loops=-1)
+pygame.mixer.music.load('Metroid.wav')
+pygame.mixer.music.set_volume(0.6)
+pygame.mixer.music.play(loops=-1)
+start = pygame.image.load("startScreen.jpg")
+print (start)
+while intro:
+    clock.tick(f)
+
+
+    screen.blit(start, [0,0]) 
 
     for event in pygame.event.get():
     # check for closing window
@@ -91,17 +95,18 @@ while intro:
             if event.key == pygame.K_RETURN:
                 running= True
                 intro = False
+    pygame.display.flip()            
 
 score = 0
 
-pygame.mixer.music.load('GameMusic.wav')
+
 pygame.mixer.music.set_volume(0.6)
+
+
+pygame.mixer.music.load('GameMusic.wav')
 pygame.mixer.music.play(loops=-1)
 
-
-
 while running == True:
-    
 
     # keep loop running at the right speed
     clock.tick(f)
@@ -118,7 +123,7 @@ while running == True:
 
     # Update
     all_sprites.update()
-
+    
 
     # check to see if a bullet hit a mob
     hits = groupcollide(asteroids, bullets, True, True)
@@ -144,6 +149,7 @@ while running == True:
     screen.fill(Colors["black"]) 
     screen.blit(background, background_rect) 
     all_sprites.draw(screen)
+    
 
     #player stats
     draw_text(screen, str(score), 30, w / 2, 10)
@@ -153,6 +159,7 @@ while running == True:
     # *after* drawing everything, flip the display
     pygame.display.flip()
 
-
+    
+    
 
 pygame.quit()
