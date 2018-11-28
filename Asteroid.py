@@ -42,13 +42,40 @@ class Asteroid(Sprite):
         self.speedy = random.randrange(-3, 3)
         self.speedx = random.randrange(8,16)
 
-        # For Rotation
         self.rot = 0
         self.rot_speed = random.randrange(-8, 8)
         self.last_update = pygame.time.get_ticks()
 
 
+# ======================================================ASTEROID STRENGTH
 
+        if (self.image_orig == randAstroid[0]) or (self.image_orig == randAstroid[1]) or (self.image_orig == randAstroid[4]) or (self.image_orig == randAstroid[5]):
+            asteroidHealth = 2
+            pts = 50
+        else:
+            asteroidHealth = 1 
+            pts = 25
+
+        self.health = asteroidHealth
+        self.points = pts
+     
+
+# ================================================KILL ASTEROID
+
+    def takeDamage(self, ammountOfDamage):
+        self.health -= ammountOfDamage
+        
+
+    def isAlive(self):
+        return self.health <= 0
+       
+
+
+   
+
+  
+#  ====================================================ROTATE METHODS
+       
     def update(self):
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
@@ -73,3 +100,4 @@ class Asteroid(Sprite):
             
             self.rect = self.image.get_rect()
             self.rect.center = old_center     
+

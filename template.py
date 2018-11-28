@@ -5,21 +5,24 @@ from pygame.sprite import Group, groupcollide, spritecollide, collide_circle
 import random
 import os
 
-# from button import Start_Button
+
 from Player import Player
 from Asteroid import Asteroid
 from Bullet import Bullet
+# from Boss import Boss
+
 from Attributes import Attributes, Colors
 w = Attributes["width"]
 h = Attributes["height"]
 f = Attributes["fps"]
+
 from Draw import draw_text, draw_shield_bar
 
 from background import Background, Background2, Background3, Background4, Background5
 
 
 
-# ===========START THE GAME================
+# =================================================================================================START THE GAME
 
 pygame.init()
 pygame.mixer.init()
@@ -30,63 +33,68 @@ clock = pygame.time.Clock()
 running = False
 
 
-
-# ===========GRAPHICS & SOUND======================
+# ================================================================================================GRAPHICS & SOUND
 
 # background = pygame.image.load("test.png").convert_alpha()
 # background_rect = background.get_rect()
 
 shoot_sound = pygame.mixer.Sound("pew.wav")
-expl_sounds = []
-for snd in ['expl3.wav', 'expl6.wav']:
-    expl_sounds.append(pygame.mixer.Sound(snd))
+hit_sound = pygame.mixer.Sound("expl3.wav")
+hit_kill = pygame.mixer.Sound("expl6.wav")
 
 
-# =======SCARY MONSTERS AND NICE SPRITES==========
+# expl_sounds = []
+# for snd in ['expl3.wav', 'expl6.wav']:
+#     expl_sounds.append(pygame.mixer.Sound(snd))
 
-#all sprites
+
+# ===================================================================================SCARY MONSTERS AND NICE SPRITES
+
 all_sprites = Group()
+
+# ===============================Player and Background
+
 player = Player()
+# b = Boss()
 
-layer1 = Background()
-layer2 = Background2()
-layer3 = Background3()
-layer4 = Background4()
-layer5 = Background5()
+layer = [Background(), Background2(), Background3(), Background4(), Background5()]
 
-bullets = Group()
+all_sprites.add(layer[0],layer[1],layer[2],layer[3],layer[4], player)
+
+# ===============================Spawn Asteroids to Group
+
 asteroids = Group()
 
-all_sprites.add(layer1,layer2,layer3,layer4,layer5, player)
-
-#Monsters
 def newAsteroid():
     a = Asteroid()
     all_sprites.add(a)
     asteroids.add(a)
 
-for i in range(16):
-    newAsteroid()
+    
 
-# bullets
+# ===============================Spawn Bullets to Group
+
+bullets = Group()
+
 def shoot(player):
         bullet = Bullet(player.rect.right, player.rect.centery)
         all_sprites.add(bullet)
         bullets.add(bullet)
 
 
-
-# ===================================================START SCREEN==========================================
+# =====================================================================================START SCREEN
 intro = True
 
+# Opening Screen Music = Metroid Theme
 pygame.mixer.music.load('Metroid.wav')
 pygame.mixer.music.set_volume(0.6)
 pygame.mixer.music.play(loops=-1)
+# Print Start Screent
 start = pygame.image.load("startScreen.jpg")
 
+# ==================================Start Screen Loop
 while intro:
     clock.tick(f)
-
 
     screen.blit(start, [0,0]) 
 
@@ -101,19 +109,21 @@ while intro:
                 intro = False
     pygame.display.flip()            
 
-score = 0
 
 
-pygame.mixer.music.set_volume(0.6)
+# ==================================Start Screen Ends
 
-
+# Game Music Loop Begins: Midnight City - M83
 pygame.mixer.music.load('GameMusic.wav')
+pygame.mixer.music.set_volume(0.6)
 pygame.mixer.music.play(loops=-1)
 
-# ===================================================GAME LOOP==========================================
+# ===========================================================================================GAME LOOP
+score = 0
+nextScore = 0
 
 while running == True:
-
+    
     # keep loop running at the right speed
     clock.tick(f)
 
@@ -126,25 +136,60 @@ while running == True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 shoot(player)
+                shoot_sound.play()
+    
+  
 
     # Update
     all_sprites.update()
     
 
-    # check to see if a bullet hit a mob
-    hits = groupcollide(asteroids, bullets, True, True)
-    for hit in hits:
-        score += 10
-        random.choice(expl_sounds).play()
-        newAsteroid()
+#    ==========================================ASTEROID GETS HIT    
 
-    # check to see if a mob hit the player
+   
+    hits = groupcollide(asteroids, bullets, False, True)
+
+    for hit_asteroid in hits:
+        if hit_asteroid.health >0:
+            hit_asteroid.takeDamage(1)
+            hit_sound.play()
+        if hit_asteroid.health ==0:
+            asteroids.remove(hit_asteroid)
+            hit_kill.play()
+            score += hit_asteroid.points
+            all_sprites.remove(hit_asteroid)
+            asteroids.remove(hit_asteroid)
+            if score <= 2400:
+                newAsteroid()
+
+    if (score >= nextScore) and (score <= 2400):
+        for i in range(4):
+            newAsteroid()
+            nextScore += 400           
+    # if score >= 2400:
+    #     all_sprites.add(b)
+
+    # hit2 = spritecollide(b, bullets, False, True)
+
+    # for hit_boss in hit2:
+    #     if hit_boss.health > 0:
+    #         hit_boss.takeDamage(1)
+    #         hit_sound.play()
+    #     if hit_boss.health ==0:
+    #         b.remove(hit_boss)
+    #         hit_kill.play()
+    #         score += 500
+    #         all_sprites.remove(hit_boss)
+            
+
+    # ==============================================PLAYER GETS HIT
     hits = spritecollide(player, asteroids, True, collide_circle)
 
     for hit in hits:
         player.shield -= 10
-        random.choice(expl_sounds).play()
-        newAsteroid()
+        hit_sound.play()
+        if score <= 2400:
+            newAsteroid()
 
         if player.shield <= 0:
             running = False
