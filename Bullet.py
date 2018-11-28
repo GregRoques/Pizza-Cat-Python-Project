@@ -29,6 +29,6 @@ class Bullet(Sprite):
 
         self.rect.right += self.speedx
 
-        # kill if it moves off the top of the screen
+        # kill if it moves beyond screen
         if self.rect.left > w:
             self.kill()

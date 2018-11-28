@@ -22,7 +22,7 @@ img8 = pygame.image.load("cookie3.png").convert_alpha()
 
 class Asteroid(Sprite):
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
+        Sprite.__init__(self)
         
         #choose asteroid image
         randAstroid = [img1, img2, img3, img4, img5, img6, img7, img8]
@@ -40,7 +40,7 @@ class Asteroid(Sprite):
         self.rect.x = random.randrange(1200, 1400)
         self.rect.y = random.randrange(0, h)
         self.speedy = random.randrange(-3, 3)
-        self.speedx = random.randrange(1,8)
+        self.speedx = random.randrange(8,16)
 
         # For Rotation
         self.rot = 0
@@ -57,7 +57,7 @@ class Asteroid(Sprite):
             self.rect.x = random.randrange(1200, 1400)
             self.rect.y = random.randrange(0, h)
             
-            self.speedx = random.randrange(1,8)
+            self.speedx = random.randrange(8,16)
 
         self.rotate()
 

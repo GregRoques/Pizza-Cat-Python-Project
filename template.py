@@ -15,7 +15,7 @@ h = Attributes["height"]
 f = Attributes["fps"]
 from Draw import draw_text, draw_shield_bar
 
-# from background import Background #===================================================BACKGROUND
+from background import Background, Background2, Background3, Background4, Background5
 
 
 
@@ -27,15 +27,14 @@ screen = pygame.display.set_mode((w, h))
 pygame.display.set_caption("Intergalactic Adventures of Pizza Cat")
 clock = pygame.time.Clock()
 
-startScreen = True
+running = False
 
 
 
 # ===========GRAPHICS & SOUND======================
 
-# background = Background() #===================================================BACKGROUND
-background = pygame.image.load("test.png").convert_alpha()
-background_rect = background.get_rect()
+# background = pygame.image.load("test.png").convert_alpha()
+# background_rect = background.get_rect()
 
 shoot_sound = pygame.mixer.Sound("pew.wav")
 expl_sounds = []
@@ -48,10 +47,17 @@ for snd in ['expl3.wav', 'expl6.wav']:
 #all sprites
 all_sprites = Group()
 player = Player()
+
+layer1 = Background()
+layer2 = Background2()
+layer3 = Background3()
+layer4 = Background4()
+layer5 = Background5()
+
 bullets = Group()
 asteroids = Group()
 
-all_sprites.add(player)
+all_sprites.add(layer1,layer2,layer3,layer4,layer5, player)
 
 #Monsters
 def newAsteroid():
@@ -68,18 +74,16 @@ def shoot(player):
         all_sprites.add(bullet)
         bullets.add(bullet)
 
-# =======GAME LOOP=======
 
-running = False
 
+# ===================================================START SCREEN==========================================
 intro = True
-
 
 pygame.mixer.music.load('Metroid.wav')
 pygame.mixer.music.set_volume(0.6)
 pygame.mixer.music.play(loops=-1)
 start = pygame.image.load("startScreen.jpg")
-print (start)
+
 while intro:
     clock.tick(f)
 
@@ -105,6 +109,8 @@ pygame.mixer.music.set_volume(0.6)
 
 pygame.mixer.music.load('GameMusic.wav')
 pygame.mixer.music.play(loops=-1)
+
+# ===================================================GAME LOOP==========================================
 
 while running == True:
 
@@ -147,10 +153,9 @@ while running == True:
     # Draw / render
   
     screen.fill(Colors["black"]) 
-    screen.blit(background, background_rect) 
+    # screen.blit(background, background_rect) 
     all_sprites.draw(screen)
-    
-
+  
     #player stats
     draw_text(screen, str(score), 30, w / 2, 10)
     draw_shield_bar(screen, 15, 15, player.shield)

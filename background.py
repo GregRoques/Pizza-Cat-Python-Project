@@ -9,38 +9,130 @@ screen = pygame.display.set_mode((w, h))
 
 
 
+# class Background(Sprite):
+#     def __init__(self):
+#         Sprite.__init__(self)
+       
+
+#         self.image = pygame.image.load("stars.png").convert_alpha()
+#         self.image_copy = self.image.copy()
+
+#         self.rect = self.image.get_rect()
+#         self.rect_copy = self.image_copy.get_rect()
+
+       
+
+#         self.rect.left = 0
+#         self.rect_copy.right = 0
+
+#         self.speedx = 10
+       
+#     def update(self):
+        
+
+#         self.rect.x -= self.speedx
+#         if self.rect.right < 0:
+#             self.rect.left = w
+
+#         self.rect_copy.x -= self.speedx
+#         if self.rect_copy.right < 0:
+#             self.rect_copy.left = w
+
 class Background(Sprite):
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
+        Sprite.__init__(self)
+       
+
         self.image = pygame.image.load("stars.png").convert_alpha()
+   
+        self.rect = self.image.get_rect()
+
+        self.rect.right = 0
+      
+
+        self.speedx = 10
+       
+    def update(self):
+        
+
+        self.rect.x += self.speedx
+        if self.rect.left > w:
+            self.rect.right= 0
+
+       
+        
+class Background2(Sprite):
+    def __init__(self):
+        Sprite.__init__(self)
+        
+
+        self.image = pygame.image.load("stars.png").convert_alpha()
+
+        self.rect = self.image.get_rect()
+
+        self.rect.right = w
+        
+
+        self.speedx = 10
+        
+    def update(self):
+        
+
+        self.rect.x += self.speedx
+        if self.rect.left > w:
+            self.rect.right= 0
+    
+    
+
+class Background3(Sprite):
+    def __init__(self):
+        Sprite.__init__(self)
+        
+
+        self.image = pygame.image.load("test2.png").convert_alpha()
+
         self.rect = self.image.get_rect()
 
 
+class Background4(Sprite):
+    def __init__(self):
+        Sprite.__init__(self)
+        
 
+        self.image = pygame.image.load("mountain.png").convert_alpha()
+
+        self.rect = self.image.get_rect()
+
+        self.rect.left = 0
+        
+
+        self.speedx = 20
+        
     def update(self):
-
-        clock = pygame.time.Clock()
-
-        bgOne = self.image
-        bgTwo = self.image
-
-        bgOne2 = 0
-        bgTwo2 = bgOne.get_width()
-
-
-        screen.blit(bgOne, (bgOne2, 0))
-        screen.blit(bgTwo, (bgTwo2, 0))
-
-        pygame.display.update()
-
-        bgOne2 -= 1
-        bgTwo2 -= 1
-
-        if bgOne2 == -1 * bgOne.get_width():
-            bgOne2 = bgTwo2 + bgTwo.get_width()
-        if bgTwo == -1 * bgTwo.get_width():
-            bgTwo2 = bgOne2 + bgOne.get_width()
         
-        clock.tick(30)
 
+        self.rect.x -= self.speedx
+        if self.rect.right < 0:
+            self.rect.left= w
+
+
+class Background5(Sprite):
+    def __init__(self):
+        Sprite.__init__(self)
         
+
+        self.image = pygame.image.load("mountain.png").convert_alpha()
+
+        self.rect = self.image.get_rect()
+
+        self.rect.left = w
+        
+
+        self.speedx = 20
+        
+    def update(self):
+        
+
+        self.rect.x -= self.speedx
+        if self.rect.right < 0:
+            self.rect.left= w            
