@@ -159,13 +159,14 @@ while running == True:
             score += hit_asteroid.points
             all_sprites.remove(hit_asteroid)
             asteroids.remove(hit_asteroid)
-            if score <= 2400:
-                newAsteroid()
+            newAsteroid()
+            # if score <= 2400:
+            #     newAsteroid()
 
     if (score >= nextScore) and (score <= 2400):
         for i in range(4):
             newAsteroid()
-            nextScore += 400           
+        nextScore += 400           
     # if score >= 2400:
     #     all_sprites.add(b)
 
@@ -188,8 +189,9 @@ while running == True:
     for hit in hits:
         player.shield -= 10
         hit_sound.play()
-        if score <= 2400:
-            newAsteroid()
+        newAsteroid()
+        # if score <= 2400:
+        #     newAsteroid()
 
         if player.shield <= 0:
             running = False
