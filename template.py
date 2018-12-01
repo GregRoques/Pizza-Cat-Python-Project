@@ -9,7 +9,7 @@ import os
 from Player import Player
 from Asteroid import Asteroid
 from Bullet import Bullet
-# from Boss import Boss
+from Boss import Boss
 
 from Attributes import Attributes, Colors
 w = Attributes["width"]
@@ -35,17 +35,13 @@ running = False
 
 # ================================================================================================GRAPHICS & SOUND
 
-# background = pygame.image.load("test.png").convert_alpha()
-# background_rect = background.get_rect()
+
 
 shoot_sound = pygame.mixer.Sound("pew.wav")
 hit_sound = pygame.mixer.Sound("expl3.wav")
 hit_kill = pygame.mixer.Sound("expl6.wav")
 
 
-# expl_sounds = []
-# for snd in ['expl3.wav', 'expl6.wav']:
-#     expl_sounds.append(pygame.mixer.Sound(snd))
 
 
 # ===================================================================================SCARY MONSTERS AND NICE SPRITES
@@ -55,7 +51,8 @@ all_sprites = Group()
 # ===============================Player and Background
 
 player = Player()
-# b = Boss()
+
+trashText = "Taco Dog: Foulish Feline – everyone knows Tacos are the ultimate 4th meal.\n Pizza Cat: Hissss. Your gastronomical blasphemy criples my karma. We must fight to the death!!!\n Hit Enter to Continue"
 
 layer = [Background(), Background2(), Background3(), Background4(), Background5()]
 
@@ -64,11 +61,20 @@ all_sprites.add(layer[0],layer[1],layer[2],layer[3],layer[4], player)
 # ===============================Spawn Asteroids to Group
 
 asteroids = Group()
+boss = Group()
 
 def newAsteroid():
     a = Asteroid()
     all_sprites.add(a)
     asteroids.add(a)
+
+def updateBoss():
+    b = Boss()
+    all_sprites.add(b)
+    boss.add(b)
+
+def trashTalk():
+    draw_text(screen, str(trashText), 15, w/2, 400)
 
     
 
@@ -113,14 +119,16 @@ while intro:
 
 # ==================================Start Screen Ends
 
-# Game Music Loop Begins: Midnight City - M83
-pygame.mixer.music.load('GameMusic.wav')
+# Game Music Loop Begins: Nice for What – Drake
+pygame.mixer.music.load('GameMusicAlt.wav')
 pygame.mixer.music.set_volume(0.6)
 pygame.mixer.music.play(loops=-1)
 
 # ===========================================================================================GAME LOOP
 score = 0
 nextScore = 0
+pause = False
+bossCount = 0
 
 while running == True:
     
@@ -133,10 +141,15 @@ while running == True:
         if event.type == pygame.QUIT:
             running = False
 
+        if pause == False:
+            player.update()
+            boss.update()
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 shoot(player)
                 shoot_sound.play()
+        
     
   
 
@@ -144,7 +157,7 @@ while running == True:
     all_sprites.update()
     
 
-#    ==========================================ASTEROID GETS HIT    
+#    ==========================================ENEMEY SPAWNING   
 
    
     hits = groupcollide(asteroids, bullets, False, True)
@@ -159,28 +172,34 @@ while running == True:
             score += hit_asteroid.points
             all_sprites.remove(hit_asteroid)
             asteroids.remove(hit_asteroid)
-            newAsteroid()
-            # if score <= 2400:
-            #     newAsteroid()
+            # newAsteroid()
+            if score <= 2400:
+                newAsteroid()
 
     if (score >= nextScore) and (score <= 2400):
         for i in range(4):
             newAsteroid()
         nextScore += 400           
-    # if score >= 2400:
-    #     all_sprites.add(b)
+    
+    if (score > 2400):
+        for a in asteroids:
+            all_sprites.remove(a)
+            asteroids.remove(a)
+        updateBoss()
 
-    # hit2 = spritecollide(b, bullets, False, True)
+    if (bossCount <1):
+        pause = True
 
-    # for hit_boss in hit2:
-    #     if hit_boss.health > 0:
-    #         hit_boss.takeDamage(1)
-    #         hit_sound.play()
-    #     if hit_boss.health ==0:
-    #         b.remove(hit_boss)
-    #         hit_kill.play()
-    #         score += 500
-    #         all_sprites.remove(hit_boss)
+        trashTalk()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    trashtalk = text = ""
+                    pause = False
+                    bossCount += 5
+    
+
+   
             
 
     # ==============================================PLAYER GETS HIT
@@ -189,9 +208,9 @@ while running == True:
     for hit in hits:
         player.shield -= 10
         hit_sound.play()
-        newAsteroid()
-        # if score <= 2400:
-        #     newAsteroid()
+        # newAsteroid()
+        if score <= 2400:
+            newAsteroid()
 
         if player.shield <= 0:
             running = False

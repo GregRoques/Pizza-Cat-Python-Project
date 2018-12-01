@@ -15,16 +15,22 @@ class Boss(Sprite):
         self.image = boss_img
         self.image.set_colorkey(Colors["black"])
         self.rect = self.image.get_rect()
+
+        self.radius = int(self.rect.width / 2)
+
+        self.rect.x = 1400
         
-        self.rect.centery = h / 2
-        self.rect.right = 10
-        self.speedy = 10
-        self.rect.y = random.randrange(0, h)
-        self.health = 30
+        self.rect.y = h / 2
+        self.speedx = 5
 
-    def takeDamage(self, ammountOfDamage):
-        self.health -= ammountOfDamage
         
+    def update():
+        self.rect.x -= self.speedx
+        self.image = boss_img
+        if self.rect.x == 1000:
+            self.rect.x == 1000
+
+    
 
 
-
+            

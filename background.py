@@ -14,29 +14,7 @@ screen = pygame.display.set_mode((w, h))
 #         Sprite.__init__(self)
        
 
-#         self.image = pygame.image.load("stars.png").convert_alpha()
-#         self.image_copy = self.image.copy()
 
-#         self.rect = self.image.get_rect()
-#         self.rect_copy = self.image_copy.get_rect()
-
-       
-
-#         self.rect.left = 0
-#         self.rect_copy.right = 0
-
-#         self.speedx = 10
-       
-#     def update(self):
-        
-
-#         self.rect.x -= self.speedx
-#         if self.rect.right < 0:
-#             self.rect.left = w
-
-#         self.rect_copy.x -= self.speedx
-#         if self.rect_copy.right < 0:
-#             self.rect_copy.left = w
 
 class Background(Sprite):
     def __init__(self):

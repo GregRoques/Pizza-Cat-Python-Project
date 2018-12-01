@@ -18,11 +18,6 @@ class Bullet(Sprite):
         self.rect.right = x
         self.rect.centery = y
         self.speedx = 25
-# ==========================================DETERMINE BULLET STRENGTH
-
-        self.strength = 1
-
-# ==================================================================
        
 
     def update(self):
