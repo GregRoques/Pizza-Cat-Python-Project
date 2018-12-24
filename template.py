@@ -1,3 +1,9 @@
+#========================================== How to Activate Pygame
+
+# miniconda access to run pygame
+# cd ~/miniconda3/bin
+# source activate py3k
+
 # ==========IMPORTANT IMPORTS===============
 
 import pygame
@@ -119,8 +125,8 @@ while intro:
 
 # ==================================Start Screen Ends
 
-# Game Music Loop Begins: Nice for What – Drake
-pygame.mixer.music.load('GameMusicAlt.wav')
+# Game Music Loop Begins: Space Cats Theme
+pygame.mixer.music.load('SpaceCats.wav')
 pygame.mixer.music.set_volume(0.6)
 pygame.mixer.music.play(loops=-1)
 
