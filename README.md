@@ -14,11 +14,13 @@ This project is a horizontal side-scrolling shooter built in Python using the op
 
 ## Features
 **Controls:** the player uses directional arrows to navigate and the space bar to shoot. The Enter/Return key is used to start the game from the intro screen and to discontinue the game from the game over screen.
+
 **Enemies:** large meteors require 2 shots to destroy and are worth 50 points; small meteors require 1 shot to destroy and are worth 25 points.
+
 **Difficulty:** The number of Enemies on the screen increases by 4 every 400 points up to 2,400 points (for a total of 24 enemies on the screen at a given time).
 
 
-##Technologies
+## Technologies
 * Python
 * Pygame library
 
@@ -109,12 +111,12 @@ Remove asteroids and introduce an end-of-level boss fight once the player exceed
 
 ## Authors
 * Greg Roques
-[GitHub Profile](https://github.com/GregRoques)
+ - [GitHub Profile](https://github.com/GregRoques)
 
 
 ## Screenshots
-(/ReadMeImages/1.png)
+![start screen](ReadMeImages/1.png)
 
-(/ReadMeImages/1.png)
+![game play](ReadMeImages/1.png)
 
-(/ReadMeImages/1.png)
+![game over screen](ReadMeImages/1.png)
