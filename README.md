@@ -1,4 +1,4 @@
-##Contents
+## Contents
 * Description
 * Features
 * Technologies
@@ -9,10 +9,10 @@
 * Screenshots
 
 
-##Description
+## Description
 This project is a horizontal side-scrolling shooter built in Python using the open-source video game module library Pygame. The player navigates through a field of confectionary ‘meteors’, blasting them to gain points and evade damage through impact. The asteroids respawn with greater frequency as the player’s score increases, raising the difficulty level. The game ends when the player’s energy meter reaches zero. 
 
-##Features
+## Features
 **Controls:** the player uses directional arrows to navigate and the space bar to shoot. The Enter/Return key is used to start the game from the intro screen and to discontinue the game from the game over screen.
 **Enemies:** large meteors require 2 shots to destroy and are worth 50 points; small meteors require 1 shot to destroy and are worth 25 points.
 **Difficulty:** The number of Enemies on the screen increases by 4 every 400 points up to 2,400 points (for a total of 24 enemies on the screen at a given time).
@@ -22,7 +22,7 @@ This project is a horizontal side-scrolling shooter built in Python using the op
 * Python
 * Pygame library
 
-##Challenges and Solutions
+## Challenges and Solutions
 **Background animation:** Though all of the activity in the game takes place within a single frame, I wanted to create the illusion that the player was speeding through space. To do this, I created three background layers: 1) the static planet in the upper right hand corner 2) the stars moving to the right, 3) the mountains zooming by to the right on the bottom of the screen.
 To achieve this, I ensured the all of the graphic layers were properly positioned atop each other. This was achieved by listing the bottom layer first in the all_sprites addition, and the top most layer (the player) last in the list.
 ```
@@ -100,21 +100,21 @@ class Background2(Sprite):
             self.rect.center = old_center     
 ```
 
-##MVP
+## MVP
 Create a side scrolling shooter that continues for as long as the player’s life bar persists and increases in difficulty the longer the player progresses.
 
 
-##Stretch/Future Goals
+## Stretch/Future Goals
 Remove asteroids and introduce an end-of-level boss fight once the player exceeds 3,600 points.
 
-##Authors
+## Authors
 * Greg Roques
 [GitHub Profile](https://github.com/GregRoques)
 
 
-##Screenshots
-(ReadMeImages/1.png)
+## Screenshots
+(/ReadMeImages/1.png)
 
-(ReadMeImages/1.png)
+(/ReadMeImages/1.png)
 
-(ReadMeImages/1.png)
+(/ReadMeImages/1.png)
