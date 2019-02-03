@@ -25,7 +25,7 @@ This project is a horizontal side-scrolling shooter built in Python using the op
 * Pygame library
 
 ## Challenges and Solutions
-**Background animation:** Though all of the activity in the game takes place within a single frame, I wanted to create the illusion that the player was speeding through space. To do this, I created three background layers: 1) the static planet in the upper right hand corner 2) the stars moving to the right, 3) the mountains zooming by to the right on the bottom of the screen.
+**Background animation:** Though all of the activity in the game takes place within a single frame, I wanted to create the illusion that the player was speeding through space. To do this, I created three background layers: **1)** the static planet in the upper right hand corner **2)** the stars moving to the right, **3)** the mountains zooming by to the right on the bottom of the screen.
 To achieve this, I ensured the all of the graphic layers were properly positioned atop each other. This was achieved by listing the bottom layer first in the all_sprites addition, and the top most layer (the player) last in the list.
 ```
 # ===============================Player and Background
@@ -111,12 +111,12 @@ Remove asteroids and introduce an end-of-level boss fight once the player exceed
 
 ## Authors
 * Greg Roques
- - [GitHub Profile](https://github.com/GregRoques)
+    * [GitHub Profile](https://github.com/GregRoques)
 
 
 ## Screenshots
 ![start screen](ReadMeImages/1.png)
 
-![game play](ReadMeImages/1.png)
+![game play](ReadMeImages/2.png)
 
-![game over screen](ReadMeImages/1.png)
+![game over screen](ReadMeImages/3.png)
