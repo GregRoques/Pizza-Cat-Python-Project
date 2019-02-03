@@ -172,10 +172,10 @@ while running == True:
             outro = True
 
             pygame.mixer.music.load('gameOver.wav')
-            pygame.mixer.music.set_volume(0.6)
+            pygame.mixer.music.set_volume(1)
             pygame.mixer.music.play(loops=-1)
             # Print Start Screent
-            start = pygame.image.load("startScreen.jpg")
+            start = pygame.image.load("exitScreen.jpg")
 
 
             while outro:
